@@ -41,12 +41,10 @@ class mostrans_appmetrica(CronBase):
 		
 		request_params = dict(url = url, headers = headers, params = params)
 		main_params = dict(request_params = request_params)
-		print(main_params)
 		return main_params 
 			
 	#парсим JSON
 	def read_json(self, req_type, load_data):
-		print("Парсинг:")
 		data = []
 		if req_type == 1:
 			data.append(load_data['query']['date1'])
@@ -66,7 +64,6 @@ class mostrans_appmetrica(CronBase):
 					a.append(load_data['data'][i]['dimensions'][0]['name'])
 					a.append(load_data['data'][i]['metrics'][0][j])
 					data.append(a)
-		print("Парсинг завершен")		
 		return data
 
 	
@@ -102,7 +99,6 @@ class mostrans_appmetrica(CronBase):
 				params = self.load_request(main_params)
 				response = params["response"]
 				load_data = response.json()
-				print(load_data)
 				data = self.read_json(req_type, load_data)
 				data_list = data_list + data
 		return data_list
